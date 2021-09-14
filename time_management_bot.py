@@ -167,6 +167,8 @@ def message(update: Update, context: CallbackContext) -> None:
         userdata[id] = user
         text = update.message.text
 
+        logger.info(f"> From {id} message {text}")
+
         cmd_found = False
 
         for name in commands:
