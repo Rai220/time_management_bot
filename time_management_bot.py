@@ -4,6 +4,7 @@ import logging
 import threading
 import time
 import random
+import os
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import (
@@ -23,6 +24,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 UNDER_CONSTURCTION = f'Сорян, функция в разработке 🙏'
+TOKEN = os.getenv("TOKEN", "<INSERT TELEGRAM BOT TOKEN>")
+
 
 def time_has_come(user, update, context):
     rt = random.randint(600, 60000)
@@ -41,7 +44,8 @@ def when_time_comes(user, update: Update, context: CallbackContext):
         f"Я напишу тебе, когда настанет время! ⌛"
     )
 
-    threading.Thread(target=time_has_come, args=(user, update, context), ).start()
+    threading.Thread(target=time_has_come, args=(
+        user, update, context), ).start()
 
 
 def start(user, update: Update, context: CallbackContext):
@@ -187,7 +191,7 @@ def message(update: Update, context: CallbackContext) -> None:
 
 
 def main() -> None:
-    updater = Updater("1903831486:AAFUg32uZ0VqsPEk4snFHH7PAFDTTl0u0Kk")
+    updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
