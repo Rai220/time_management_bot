@@ -64,7 +64,8 @@ def start(user, update: Update, context: CallbackContext):
 def start_collect_task(user, update: Update, context: CallbackContext):
     user["current_task"] = commands["START_WORK"]
     text = update.message.text
-    user['tasks'].append(text)
+    if text and len(text) > 0 and text != commands["ALL_TASKS"]["text"]:
+        user['tasks'].append(text)
 
     reply_keyboard = [[commands["ALL_TASKS"]["text"]]]
     update.message.reply_text(
